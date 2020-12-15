@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit</title>
+</head>
+<body>
+<div align="center">
+    <h3>Edit user</h3>
+    <br/>
+    <form method="post" th:action="@{/admin/edit/{id} (id=*{id})}" th:object="${editUser}">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input name="name" th:field="*{name}" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Surname</td>
+                <td><input name="surname" th:field="*{surname}" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input name="age" th:field="*{age}" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input name="email" th:field="*{email}" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input name="password" th:field="*{password}" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Roles</td>
+                <td>
+                    <th:block th:each="oneRole : ${listRole}">
+                        <br>
+                        <input th:checked="${#lists.contains(editUser.roles, oneRole)}" name="newRole"
+                               th:value="${oneRole.getRole()}" type="checkbox"/>
+                        <label th:text="${oneRole.getRole()}"></label>
+                    </th:block>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <input type="submit" value="OK">
+
+    </form>
+</div>
+</body>
+</html>
