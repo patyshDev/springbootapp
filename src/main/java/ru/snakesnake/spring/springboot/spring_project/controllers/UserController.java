@@ -12,13 +12,23 @@ import java.security.Principal;
 
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
 
     @GetMapping
+    public String homePage() {
+        return "home";
+    }
+
+    @GetMapping("/welcome")
+    public String welcomePage() {
+        return "welcome";
+    }
+
+    @GetMapping("/user")
     public String clickMe(Model model, Principal principal) {
         model.addAttribute("oneUser", userService.getUserByEmail(principal.getName()));
         return "show-me";

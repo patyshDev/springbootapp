@@ -23,8 +23,6 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public boolean saveUser(User user) {
         User userFromDb = userRepository.findByEmail(user.getEmail());
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserDetailsService {
         if(userFromDb != null) {
             return false;
         }
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }
